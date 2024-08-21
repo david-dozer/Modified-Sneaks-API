@@ -16,7 +16,7 @@ module.exports = {
                     "sec-fetch-mode": "cors",
                     "sec-fetch-site": "cross-site"
                 },
-                body: `{"params":"query=${key}&facets=*&filters=&hitsPerPage=${count}"}`,
+                body: `{"params":"query=${key}&facets=*&filters=product_category:sneakers&hitsPerPage=${count}"}`,
                 http2: true
             });
            
