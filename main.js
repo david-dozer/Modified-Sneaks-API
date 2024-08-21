@@ -51,7 +51,8 @@ async function processThumbnails(products) {
             const buffer = Buffer.from(resultDataURL.split(';base64,').pop(), 'base64');
 
             // Save the resulting image with transparent background to a PNG file
-            const outputFileName = path.join(outputDir, `thumbnail_${i}.png`);
+            const originalFileName = path.basename(thumbnailUrl, path.extname(thumbnailUrl));
+            const outputFileName = path.join(outputDir, `${originalFileName}.png`);
             fs.writeFileSync(outputFileName, buffer);
 
             console.log(`Processed ${outputFileName}`);
