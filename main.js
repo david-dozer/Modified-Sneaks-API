@@ -5,35 +5,15 @@ const axios = require('axios');
 const path = require('path');
 // const { removeBackground } = require('@imgly/background-removal-node'); // Use require for CommonJS
 const { removeImageBackground } = require('./frontend.js');
+const { clearDirectory } = require('./cleardict.js'); // Import clearDirectory
 const sneaks = new SneaksAPI();
 
-// sneaks.getProducts("Kobe", 24, function(err, products) {
-//     if (err) {
-//         console.error(err);
-//         return;
-//     }
-//     console.log(products);
-// });
-
-// Product object includes styleID where you input it in the getProductPrices function
-// getProductPrices(styleID, callback) takes in a style ID and returns sneaker info including a price map and more images of the product
-// sneaks.getProductPrices("fv4921-600", function(err, product){
-//     console.log(product)
-// })
-
-// getMostPopular(limit, callback) takes in a limit and returns an array of the current popular products curated by StockX
-// sneaks.getMostPopular(8, function(err, products){
-//     processThumbnails(products)
-// });
-
-// getMostPopular, but it transparifies each shoe thumbnail image
-// Ensure the transparent_imgs directory exists
-const outputDir = path.join(__dirname, 'transparent_imgs');
-if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir);
-}
-
 async function processThumbnails(products) {
+    const outputDir = path.join(__dirname, 'transparent_imgs');
+    if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir);
+    }
+    clearDirectory('transparent_imgs');
     const thumbnails = products.map(product => {
         const url = product.thumbnail.split('.jpg')[0] + '.jpg';
         console.log('Thumbnail URL:', url); // Log URL to debug
@@ -73,6 +53,7 @@ async function processThumbnails(products) {
     }
 }
 
+// getMostPopular, but it transparifies each shoe thumbnail images
 // Fetch the most popular products and process their thumbnails
 sneaks.getMostPopular(8, function(err, products) {
     if (err) {
@@ -82,3 +63,19 @@ sneaks.getMostPopular(8, function(err, products) {
 
     processThumbnails(products);
 });
+
+// TEST CASES
+
+// sneaks.getProducts("Kobe", 4, function(err, products) {
+//     if (err) {
+//         console.error(err);
+//         return;
+//     }
+//     processThumbnails(products);
+// });
+
+// Product object includes styleID where you input it in the getProductPrices function
+// getProductPrices(styleID, callback) takes in a style ID and returns sneaker info including a price map and more images of the product
+// sneaks.getProductPrices("fv4921-600", function(err, product){
+//     console.log(product)
+// })
