@@ -17,6 +17,7 @@ module.exports = {
                     "sec-fetch-site": "cross-site"
                 },
                 body: `{"params":"query=${key}&facets=*&filters=product_category:sneakers&hitsPerPage=${count}"}`,
+                // only sneakers now
                 http2: true
             });
            
