@@ -1,6 +1,6 @@
 {
   "name": "changed-sneaks-api",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A RESTful API that collects and returns data on sneakers. This API will also find, compare and return a link of where to buy the sneaker based on the price.",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,7 @@
     "api",
     "nodejs"
   ],
-  "author": "druv5319@gmail.com",
+  "author": "dgmendoza1015@gmail.com",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/druv5319/Sneaks-API/issues"
