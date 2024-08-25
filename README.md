@@ -2,7 +2,7 @@ DISCLAIMER: All credits go to Dhruv Patel(druv5319). A StockX API, FlightClub AP
 
 Sneaks API is a sneaker API built using Node.JS, Express, and Got. The Sneaks API allows users to get essential sneaker content such as images, product links and even prices from resell sites while also collecting data and storing it within a database. This API mainly scrapes StockX for sneaker information and then asynchronously scrapes Stadium Goods, Goat, and Flight Club for additional sneaker information such as images and its respective resell price. This API outputs a sneaker object of the following variables:
 
-**UPDATE 1.2.3**: Updated and fixed the Goat API to reflect their API changes. Removed the web server (localhost:4000) the package creates.
+**UPDATE 1.0.1**: Added a filter to not show (GS) shoes on getMostPopularProducts so the same make of shoe does not show up twice.
 
   - Sneaker Name
   - Colorway
@@ -41,7 +41,7 @@ const SneaksAPI = require('changed-sneaks-api');
 const sneaks = new SneaksAPI();
 
 //getProducts(keyword, limit, callback) takes in a keyword and limit and returns a product array 
-sneaks.getProducts("Yeezy Cinder", 10, function(err, products){
+sneaks.getProducts("Kobe", 10, function(err, products){
     console.log(products)
 })
 

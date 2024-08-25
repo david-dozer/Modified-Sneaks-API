@@ -27,7 +27,7 @@
   "bugs": {
     "url": "https://github.com/druv5319/Sneaks-API/issues"
   },
-  "homepage": "https://github.com/druv5319/Sneaks-API#readme",
+  "homepage": "https://github.com/david-dozer/Modified-Sneaks-API/#readme",
   "dependencies": {
     "@imgly/background-removal-node": "^1.4.3",
     "axios": "^1.7.4",
