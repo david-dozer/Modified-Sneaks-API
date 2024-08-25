@@ -29,15 +29,15 @@ Sneaks API is a sneaker API built using Node.JS, Express, and Got. The Sneaks AP
 To use this API you will need to have [node.js](https://nodejs.org/en/) installed.
 Once installed, use this line on the terminal within your Node.js project directory
 ```
-npm install modified-sneaks-api
+npm install changed-sneaks-api
 ```
 and place this line at the top of your main file
 ```js
-const SneaksAPI = require('modified-sneaks-api');
+const SneaksAPI = require('changed-sneaks-api');
 ```
 ## How to Use
 ```js
-const SneaksAPI = require('modified-sneaks-api');
+const SneaksAPI = require('changed-sneaks-api');
 const sneaks = new SneaksAPI();
 
 //getProducts(keyword, limit, callback) takes in a keyword and limit and returns a product array 
