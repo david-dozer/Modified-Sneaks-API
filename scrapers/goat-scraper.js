@@ -1,8 +1,6 @@
 const got = require('got');
 const request = require('request');
 
-
-
 module.exports = {
   getLink: async function (shoe, callback) {
     try {
@@ -24,54 +22,50 @@ module.exports = {
       }
       callback();
     } catch (error) {
-      let err = new Error("Could not connect to Goat while searching '" + shoe.styleID + "' Error: ", error)
+      let err = new Error("Could not connect to Goat while searching '" + shoe.styleID + "' Error: ", error);
       console.log(err);
-      callback(err)
+      callback(err);
     }
   },
 
   getPrices: async function (shoe, callback) {
     if (!shoe.resellLinks.goat) {
-      callback()
+      callback();
     } else {
       let apiLink = `http://www.goat.com/web-api/v1/product_variants/buy_bar_data?productTemplateId=${shoe.goatProductId}`;
       let priceMap = {};
 
       try {
-        const response = await got(apiLink, {	
+        const response = await got(apiLink, {
           headers: {
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; rv:20.0) Gecko/20121202 Firefox/20.0',
             'Content-Type': 'application/json',
           },
-          
           http2: true,
         });
         var json = JSON.parse(response.body);
         for (var i = 0; i < json.length; i++) {
-          if(json[i].shoeCondition == 'used') continue;
-          if(priceMap[json[i].sizeOption.value]){
+          if (json[i].shoeCondition == 'used') continue;
+          if (priceMap[json[i].sizeOption.value]) {
             priceMap[json[i].sizeOption.value] = json[i].lowestPriceCents.amount / 100 < priceMap[json[i].sizeOption.value] ? json[i].lowestPriceCents.amount / 100 : priceMap[json[i].sizeOption.value];
+          } else {
+            priceMap[json[i].sizeOption.value] = json[i].lowestPriceCents.amount / 100;
           }
-          else{
-            priceMap[json[i].sizeOption.value] = json[i].lowestPriceCents.amount / 100 ;
-          }
-
-          
         }
         shoe.resellPrices.goat = priceMap;
-        callback()
+        callback();
       } catch (error) {
         console.log(error);
-        let err = new Error("Could not connect to Goat while searching '" + shoe.styleID + "' Error: ", error)
+        let err = new Error("Could not connect to Goat while searching '" + shoe.styleID + "' Error: ", error);
         console.log(err);
-        callback(err)
+        callback(err);
       }
     }
   },
 
   getPictures: async function (shoe, callback) {
     if (!shoe.resellLinks.goat) {
-      callback()
+      callback();
     } else {
       let apiLink = shoe.resellLinks.goat.replace('sneakers', 'web-api/v1/product_templates');
       try {
@@ -102,10 +96,10 @@ module.exports = {
         }
         callback(shoe);
       } catch (error) {
-        let err = new Error("Could not connect to Goat while grabbing pictures for '" + shoe.styleID + "' Error: ", error)
+        let err = new Error("Could not connect to Goat while grabbing pictures for '" + shoe.styleID + "' Error: ", error);
         console.log(err);
-        callback(err)
+        callback(err);
       }
     }
   }
-}
+};

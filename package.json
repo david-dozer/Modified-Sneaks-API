@@ -1,5 +1,5 @@
 {
-  "name": "sneaks-api",
+  "name": "changed-sneaks-api",
   "version": "1.2.1",
   "description": "A RESTful API that collects and returns data on sneakers. This API will also find, compare and return a link of where to buy the sneaker based on the price.",
   "main": "index.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/druv5319/Sneaks-API.git"
+    "url": "git+https://github.com/david-dozer/Modified-Sneaks-API.git"
   },
   "keywords": [
     "sneakers",
@@ -32,6 +32,7 @@
     "@imgly/background-removal-node": "^1.4.3",
     "axios": "^1.7.4",
     "canvas": "^2.11.2",
+    "changed-sneaks-api": "file:",
     "cheerio": "^1.0.0-rc.3",
     "core-util-is": "^1.0.2",
     "cors": "^2.8.5",

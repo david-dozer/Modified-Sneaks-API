@@ -3,8 +3,7 @@ const Sneaker = require('../models/Sneaker');
 
 
 module.exports = {
-    getProductsAndInfo: async function (key, count, callback) {
-      
+    getProductsAndInfo: async function (key, count, callback, filterGS = false) {     
         try {
             const response = await got.post('https://xw7sbct9v6-1.algolianet.com/1/indexes/products/query?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%203.32.1&x-algolia-application-id=XW7SBCT9V6&x-algolia-api-key=6b5e76b49705eb9f51a06d3c82f7acee', {
                 headers: {
@@ -17,20 +16,24 @@ module.exports = {
                     "sec-fetch-site": "cross-site"
                 },
                 body: `{"params":"query=${key}&facets=*&filters=product_category:sneakers&hitsPerPage=${count}"}`,
-                // only sneakers now
                 http2: true
             });
-           
-            
+    
             var json = JSON.parse(response.body);
             var products = [];
             var numOfShoes = json.hits.length;
-
+    
             for (var i = 0; i < json.hits.length; i++) {
+                // Check if the shoe name contains "(GS)" and skip it if filtering is enabled
+                if (filterGS && json.hits[i].name.includes('(GS)')) {
+                    continue;
+                }
+    
                 if (!json.hits[i].style_id || (json.hits[i].style_id).indexOf(' ') >= 0) {
                     numOfShoes--;
                     continue;
                 }
+    
                 var shoe = new Sneaker({
                     shoeName: json.hits[i].name,
                     brand: json.hits[i].brand,
@@ -47,22 +50,23 @@ module.exports = {
                         stockX: 'https://stockx.com/' + json.hits[i].url
                     }
                 });
-                if(json.hits[i].lowest_ask){
+    
+                if (json.hits[i].lowest_ask) {
                     shoe.lowestResellPrice.stockX = json.hits[i].lowest_ask;
                 }
-                products.push(shoe)
+                
+                products.push(shoe);
             }
-          
+    
             if (products.length == 0 || numOfShoes == 0) {
                 callback(new Error('Product Not Found'), null);
-            } 
-            else {
+            } else {
                 callback(null, products);
             }
         } catch (error) {
-            let err = new Error("Could not connect to StockX while searching '", key, "' Error: ", error)
+            let err = new Error("Could not connect to StockX while searching '" + key + "' Error: ", error);
             console.log(err);
-            callback(err, products)
+            callback(err, null);
         }
     },
 
